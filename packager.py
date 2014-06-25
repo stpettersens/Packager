@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-
 """
 Packager
-Utility to morph a BlueJ project into a proper Java package folder structure
+Utility to morph a BlueJ project into a proper Java package.
 
-Depends on txtrevise utility.
+Depends on txtrevise utility and Java compiler (javac).
 """
 import sys
 import re
@@ -16,6 +15,7 @@ import glob
 def package(package, mainClass, classPath, rootFolder, verbose):
 
 	jars = path = ''
+	jarsArray = []
 
 	# Create packager root
 	if not os.path.exists('packager'):
@@ -26,6 +26,7 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 	for jar in glob.glob('*.jar'):
 		if verbose: print(jar)
 		jars += '{0}/{1} '.format(classPath, jar)
+		jarsArray.append('{0}/{1}/{2};'.format(rootFolder, classPath, jar))
 
 	os.chdir('..')
 
@@ -47,7 +48,6 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 		if verbose: print(java)
 		os.system('txtrevise -q -f {0} -l 1 -m "//package" -r "{1}"'.format(java, 'package {0};'.format(package)))
 
-
 	if verbose: print('Creating folder structure from package declaration:')
 	structure = 'package {0}'.format(package)
 	folders = re.split('\.|\s', structure)
@@ -58,14 +58,22 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 	if verbose: print(path)
 	os.makedirs(path)
 
-	if verbose: print('Move source files to package structure:')
+	if verbose: print('Copy source files to package structure:')
 	for java in glob.glob('*.java'):
-		if verbose: print('Move {0}'.format(java))
-		shutil.move(java, path)
+		if verbose: print('Copy {0}'.format(java))
+		shutil.copy(java, path)
 
+	if verbose: print('Compiling classes:')
+	cp = ".;"
+	for jar in jarsArray:
+		cp += jar
+
+	for java in glob.glob('*.java'):
+		if verbose: print('Compiling {0}'.format(java))
+		os.system('javac -cp {0} {1}\{2}'.format(cp[:-1], path, java))
 
 # Handle any command line arguments
-parser = argparse.ArgumentParser(description='Utility to morph a BlueJ project into proper Java package folder structure')
+parser = argparse.ArgumentParser(description='Utility to morph a BlueJ project into proper Java package.')
 parser.add_argument('-p', '--package', action='store', dest='package', metavar="PACKAGE", required=True)
 parser.add_argument('-m', '--mainClass', action='store', dest='mainClass', metavar="MAINCLASS", required=True)
 parser.add_argument('-cp', '--classPath', action='store', dest='classPath', metavar="FOLDER", required=True)
