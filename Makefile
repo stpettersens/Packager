@@ -12,7 +12,7 @@ ROOTDIR = examples
 make:
 	$(FREEZE) $(SOURCE) --target-dir dist
 test:
-	mv dist/${TARGET} /usr/bin 
+	sudo mv dist/${TARGET} /usr/bin 
 	$(TARGET) -p $(PACKAGE) -m $(MAINCLASS) -cp . -r $(ROOTDIR) -v
 	java -jar $(MAINCLASS).jar
 
