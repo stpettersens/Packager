@@ -32,4 +32,3 @@ test_script:
 on_success:
     - ps: "rm txtrevise.exe"
     - ps: "rm packager.exe"
-----
