@@ -9,6 +9,10 @@ PACKAGE = io.stpettersens.example.helloworld
 MAINCLASS = HelloWorld
 ROOTDIR = examples
 
+dependencies:
+	sudo add-apt-repository ppa:s.stpettersen/txtrevise-util
+	sudo apt-get update
+	sudo apt-get install
 make:
 	$(FREEZE) $(SOURCE) --target-dir dist
 test:
