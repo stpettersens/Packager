@@ -11,7 +11,7 @@ ROOTDIR = examples
 
 dependencies:
 	yes | sudo add-apt-repository ppa:s.stpettersen/txtrevise-util
-	sudo apt-get update
+	sudo apt-get update > /dev/null
 	sudo apt-get install
 make:
 	$(FREEZE) $(SOURCE) --target-dir dist
