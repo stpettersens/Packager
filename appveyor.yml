@@ -26,7 +26,8 @@ build_script:
 
 test_script:
     - "packager.exe -p io.stpettersen.example.helloworld -m HelloWorld -cp . -r examples -v"
-    - "java.exe -jar HelloWorld.jar"
+    - ps: "ls -l"
+    #- "java.exe -jar HelloWorld.jar"
 
 on_success:
     - ps: "rm txtrevise.exe"
