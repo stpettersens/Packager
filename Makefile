@@ -25,4 +25,5 @@ test:
 
 clean:
 	rm -r -f dist
+	rm -r -f packager
 	rm -f $(MAINCLASS).jar
