@@ -1,6 +1,6 @@
-##
+#
 # Makefile to build standalone `packager` Unix-like executable program.
-##
+#
 
 FREEZE = cxfreeze
 SOURCE = packager.py
