@@ -18,10 +18,10 @@ install:
     - "%PYTHON%/Scripts/pip.exe -q install cx_Freeze"
 
     # Download txtrevise utility, a depedency of packager:
-    - ps: (new-object net.webclient).DownloadFile("https://raw.githubusercontent.com/stpettersens/txtrevise/master/python/txtrevise.py", "txtrevise.py")
+    - ps: (new-object net.webclient).DownloadFile("https://raw.githubusercontent.com/stpettersens/txtrevise/master/python/txtrevise.py", "C:/txtrevise.py")
 
 build_script:
-    - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze txtrevise.py --target-dir ."
+    - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze C:/txtrevise.py --target-dir ."
     - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze packager.py --target-dir ."
 
 test_script:
