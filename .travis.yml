@@ -6,6 +6,6 @@ python:
 install: pip -q install cx_Freeze
 
 # Commands to build, test and clean with `make`
-before_script: make
-script: make test
+before_script: make dependencies
+script: make && make test
 after_script: make clean
