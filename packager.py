@@ -19,7 +19,7 @@ import glob
 
 def package(package, mainClass, classPath, rootFolder, verbose):
 
-	signature = "Packager 1.0 (https://github/stpettersens/Packager)"
+	signature = "Packager 1.0 (https://github.com/stpettersens/Packager)"
 	javac_version = subprocess.check_output(['javac', '-version'], stderr=subprocess.STDOUT)
 
 	jars = path = startPath = ''
@@ -32,7 +32,7 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 
 	if classPath != '.':
 		if verbose: print('Finding required JAR libraries:')
-		os.chdir('{0}/{1}'.format(rootFolder, classPath))
+		if rootFolder != '.': os.chdir('{0}/{1}'.format(rootFolder, classPath))
 		for jar in glob.glob('*.jar'):
 			if verbose: print(jar)
 			jars += '{0}/{1} '.format(classPath, jar)
@@ -47,7 +47,7 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 		if verbose: print(java)
 		shutil.copy(java, '../packager')
 
-	os.chdir('../packager')
+	if rootFolder != '.': os.chdir('../packager')
 
 	if verbose: print('Writing manifest for {0}.{1}'.format(package, mainClass))
 	f = open('Manifest.mf'.format(rootFolder), 'w')
