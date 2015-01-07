@@ -15,7 +15,7 @@ make:
 dependencies:
 	pip -q install cx_Freeze
 	yes | sudo add-apt-repository ppa:s.stpettersen/txtrevise-util
-	sudo apt-get update > /dev/null
+	sudo apt-get update #> /dev/null
 	sudo apt-get install
 	
 test:
