@@ -3,6 +3,8 @@
 Packager
 Utility to morph a BlueJ project into a proper Java package.
 
+Copyright 2014-2015 Sam Saint-Pettersen.
+
 Depends on txtrevise utility and Java compiler (javac) and Java archiver (jar).
 """
 import sys
