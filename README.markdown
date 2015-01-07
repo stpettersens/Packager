@@ -1,9 +1,3 @@
-Packager
-========
+## Packager [![Build Status](https://travis-ci.org/stpettersens/Packager.png?branch=master)](https://travis-ci.org/stpettersens/Packager)
 
-Utility to morph a BlueJ project into a proper Java package.
-
-TODO
-----
-
-Add Travis CI integration!
+Utility to morph a non-structured project into a proper Java package.
