@@ -1,0 +1,32 @@
+#
+# Appveyor CI configuration.
+#
+
+environment:
+    PACKAGE: "io.stpettersen.example.helloworld"
+    MAINCLASS: "HelloWorld"
+    ROOTDIR: "examples"
+    matrix:
+        - PYTHON: "C:/Python27"
+
+install:
+    # Download Python package manager (`pip`):
+    - ps: (new-object net.webclient).DownloadFile("http://raw.github.com/pypa/pip/master/contrib/get-pip.py", "C:/get-pip.py")
+    - "%PYTHON%/python.exe C:/get-pip.py"
+
+    # Install cxfreeze utility via pip:
+    - "%PYTHON%/Scripts/pip.exe -q install cx_Freeze"
+
+    # Download txtrevise utility, a depedency of packager:
+    - ps: (new-object net.webclient).DownloadFile("https://raw.githubusercontent.com/stpettersens/txtrevise/master/python/txtrevise.py", "txtrevise.py")
+
+build_script:
+    - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze txtrevise.py --target-dir ."
+    - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze packager.py --target-dir ."
+
+test_script:
+    - "packager.exe -p %PACKAGER% -m %MAINCLASS% -cp . -r %ROOTDIR% -v"
+    - "java -jar %MAINCLASS%.jar"
+
+on_success:
+    - ps: "rm txtrevise.exe packager.exe"
