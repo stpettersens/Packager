@@ -10,7 +10,7 @@ MAINCLASS = HelloWorld
 ROOTDIR = examples
 
 dependencies:
-	sudo add-apt-repository ppa:s.stpettersen/txtrevise-util
+	yes | sudo add-apt-repository ppa:s.stpettersen/txtrevise-util
 	sudo apt-get update
 	sudo apt-get install
 make:
