@@ -5,7 +5,7 @@
 FREEZE = cxfreeze
 SOURCE = packager.py
 TARGET = packager
-PACKAGE = io.stpettersens.example.helloworld
+PACKAGE = io.stpettersen.example.helloworld
 MAINCLASS = HelloWorld
 ROOTDIR = examples
 

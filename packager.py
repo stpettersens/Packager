@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Packager
-Utility to morph a BlueJ project into a proper Java package.
+Utility to morph a non-structured project into a proper Java package.
 
 Copyright 2014-2015 Sam Saint-Pettersen.
 Licensed under the MIT/X11 License.
@@ -11,12 +11,16 @@ Depends on txtrevise utility and Java compiler (javac) and Java archiver (jar).
 import sys
 import re
 import os
+import subprocess
 import platform
 import argparse
 import shutil
 import glob
 
 def package(package, mainClass, classPath, rootFolder, verbose):
+
+	signature = "Packager 1.0 (https://github/stpettersens/Packager)"
+	javac_version = subprocess.check_output(['javac', '-version'], stderr=subprocess.STDOUT)
 
 	jars = path = startPath = ''
 	jarsArray = []
@@ -47,6 +51,8 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 
 	if verbose: print('Writing manifest for {0}.{1}'.format(package, mainClass))
 	f = open('Manifest.mf'.format(rootFolder), 'w')
+	f.write('Packager-Version: {0}\n'.format(signature))
+	f.write('Created-By: {0}\n'.format(javac_version.rstrip()))
 	f.write('Main-Class: {0}.{1}\n'.format(package, mainClass))
 	if classPath != '.': f.write('Class-Path: {0}\n'.format(jars))
 	f.close()
