@@ -26,7 +26,7 @@ build_script:
 
 test_script:
     - "packager.exe -p %PACKAGER% -m %MAINCLASS% -cp . -r %ROOTDIR% -v"
-    - "java -jar %MAINCLASS%.jar"
+    - "java.exe -jar %MAINCLASS%.jar"
 
 on_success:
     - ps: "rm txtrevise.exe packager.exe"
