@@ -22,7 +22,6 @@ build_script:
     - ps: "mkdir C:/txtrevise"
     - ps: "mv txtrevise.exe C:/txtrevise"
     - ps: "$env:Path += ';C:/txtrevise'"
-    - ps: "echo $env:Path"
     - ps: "rm bz2.pyd"
     - ps: "rm unicodedata.pyd"
     - ps: "rm python27.dll"
