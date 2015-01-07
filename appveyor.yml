@@ -3,9 +3,6 @@
 #
 
 environment:
-    PACKAGE: "io.stpettersen.example.helloworld"
-    MAINCLASS: "HelloWorld"
-    ROOTDIR: "examples"
     matrix:
         - PYTHON: "C:/Python27"
 
@@ -28,8 +25,8 @@ build_script:
     - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze packager.py --target-dir ."
 
 test_script:
-    - "packager.exe -p %PACKAGER% -m %MAINCLASS% -cp . -r %ROOTDIR% -v"
-    - "java.exe -jar %MAINCLASS%.jar"
+    - "packager.exe -p io.stpettersen.example.helloworld -m HelloWorld -cp . -r examples -v"
+    - "java.exe -jar HelloWorld.jar"
 
 on_success:
     - ps: "rm txtrevise.exe"
