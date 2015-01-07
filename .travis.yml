@@ -3,9 +3,9 @@ python:
     - 2.7
 
 # Command to install dependencies
-install: pip -q install cx_Freeze
+install: make dependencies
 
 # Commands to build, test and clean with `make`
-before_script: make dependencies
-script: make && make test
+before_script: make
+script: make test
 after_script: make clean
