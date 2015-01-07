@@ -19,9 +19,9 @@ install:
 
 build_script:
     - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze C:/txtrevise.py --target-dir ."
-    - "mkdir C:\txtrevise"
-    - ps: "mv txtrevise.exe C:\txtrevise"
-    - ps: "$env:Path += ';C:\txtrevise'"
+    - ps: "mkdir C:/txtrevise"
+    - ps: "mv txtrevise.exe C:/txtrevise"
+    - ps: "$env:Path += ';C:/txtrevise'"
     - ps: "echo $env:Path"
     - ps: "rm bz2.pyd"
     - ps: "rm unicodedata.pyd"
@@ -33,6 +33,6 @@ test_script:
     - "java.exe -jar HelloWorld.jar"
 
 on_success:
-    - ps: "rm C:\txtrevise\txtrevise.exe"
-    - "rmdir C:\txtrevise"
+    - ps: "rm C:/txtrevise/txtrevise.exe"
+    - ps: "rmdir C:/txtrevise"
     - ps: "rm packager.exe"
