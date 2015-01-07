@@ -22,11 +22,12 @@ install:
 
 build_script:
     - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze C:/txtrevise.py --target-dir ."
-    - "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze packager.py --target-dir ."
+    - ps: "ls ."
+    #- "%PYTHON%/python.exe %PYTHON%/Scripts/cxfreeze packager.py --target-dir ."
 
-test_script:
-    - "packager.exe -p %PACKAGER% -m %MAINCLASS% -cp . -r %ROOTDIR% -v"
-    - "java.exe -jar %MAINCLASS%.jar"
+#test_script:
+    #- "packager.exe -p %PACKAGER% -m %MAINCLASS% -cp . -r %ROOTDIR% -v"
+    #- "java.exe -jar %MAINCLASS%.jar"
 
-on_success:
-    - ps: "rm txtrevise.exe packager.exe"
+#on_success:
+    #- ps: "rm txtrevise.exe packager.exe"
