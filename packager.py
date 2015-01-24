@@ -6,7 +6,7 @@ Utility to morph a non-structured project into a proper Java package.
 Copyright 2014-2015 Sam Saint-Pettersen.
 Licensed under the MIT/X11 License.
 
-Depends on txtrevise utility and Java compiler (javac) and Java archiver (jar).
+Depends on txtrevise utility, Java compiler (javac) and Java archiver (jar).
 """
 import sys
 import re
@@ -17,9 +17,25 @@ import argparse
 import shutil
 import glob
 
-def package(package, mainClass, classPath, rootFolder, verbose):
+signature = "Packager 1.0 (https://github.com/stpettersens/Packager)"
 
-	signature = "Packager 1.0 (https://github.com/stpettersens/Packager)"
+def displayVersion():
+	print('\n' + signature)
+
+def displayInfo():
+	print(__doc__)
+
+def pkg(package, mainClass, classPath, rootFolder, verbose, version, info):
+
+	if package == None and mainClass == None and classPath == None and rootFolder == None:
+		if verbose == False and version == True and info == False:
+			displayVersion()
+
+		elif verbose == False and version == False and info == True:
+			displayInfo()
+
+		sys.exit(0)
+
 	javac_version = subprocess.check_output(['javac', '-version'], stderr=subprocess.STDOUT)
 
 	jars = path = startPath = ''
@@ -102,13 +118,15 @@ def package(package, mainClass, classPath, rootFolder, verbose):
 	os.system('jar {0} {1}.jar Manifest.mf {2}'.format(args, mainClass, rootPackage))
 	shutil.move('{0}.jar'.format(mainClass), '..')
 
-# Handle any command line arguments
+# Handle any command line arguments.
 parser = argparse.ArgumentParser(description='Utility to morph a BlueJ project into a proper Java package.')
-parser.add_argument('-p', '--package', action='store', dest='package', metavar="PACKAGE", required=True)
-parser.add_argument('-m', '--mainClass', action='store', dest='mainClass', metavar="MAINCLASS", required=True)
-parser.add_argument('-cp', '--classPath', action='store', dest='classPath', metavar="FOLDER", required=True)
-parser.add_argument('-r', '--root', action='store', dest='rootFolder', metavar="ROOTFOLDER", required=True)
-parser.add_argument('-v', '--verbose', action='store_true', dest='verbose')
+parser.add_argument('-p', '--package', action='store', dest='package', metavar="PACKAGE")
+parser.add_argument('-m', '--mainClass', action='store', dest='mainClass', metavar="MAINCLASS")
+parser.add_argument('-cp', '--classPath', action='store', dest='classPath', metavar="FOLDER")
+parser.add_argument('-r', '--root', action='store', dest='rootFolder', metavar="ROOTFOLDER")
+parser.add_argument('-l', '--verbose', action='store_true', dest='verbose')
+parser.add_argument('-v', '--version', action='store_true', dest='version')
+parser.add_argument('-i', '--info', action='store_true', dest='info')
 argv = parser.parse_args()
 
-package(argv.package, argv.mainClass, argv.classPath, argv.rootFolder, argv.verbose)
+pkg(argv.package, argv.mainClass, argv.classPath, argv.rootFolder, argv.verbose, argv.version, argv.info)
