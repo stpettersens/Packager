@@ -20,7 +20,7 @@ dependencies:
 	
 test:
 	sudo mv dist/${TARGET} /usr/bin 
-	$(TARGET) -p $(PACKAGE) -m $(MAINCLASS) -cp . -r $(ROOTDIR) -v
+	$(TARGET) -p $(PACKAGE) -m $(MAINCLASS) -cp . -r $(ROOTDIR) -l
 	java -jar $(MAINCLASS).jar
 
 clean:
